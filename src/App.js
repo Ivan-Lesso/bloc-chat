@@ -3,6 +3,7 @@ import { Route, Link } from 'react-router-dom';
 import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
+import MessageList from './components/MessageList';
 
 // Initialize Firebase
 var config = {
@@ -24,6 +25,7 @@ class App extends Component {
             <RoomList firebase={firebase}/>
           </nav>
           <div id="content">
+            <MessageList firebase={firebase}/>
           </div>
         </div>
       </div>
