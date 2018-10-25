@@ -59,7 +59,32 @@ code {
   display: none;
 }
 
+#content {
+  width: 100%;
+}
+.messageList h2 {
+  padding: 30px;
+}
+
+.messageTable {
+  width: 80%;
+  margin-left: 30px;
+}
+
 .userButton {
   width: 19.5%;
   padding: 20px;
+}
+
+.chatForm {
+}
+
+.roomChatText
+{
+  padding: 10px;
+}
+
+.roomChatText input {
+  margin-right: 10px;
+  width: 500px;
 }

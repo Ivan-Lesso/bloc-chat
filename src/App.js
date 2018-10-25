@@ -61,7 +61,7 @@ class App extends Component {
               <Route exact path="/" component={Landing} />
               <Route
                 path='/room/:roomKey'
-                render={(props) => <MessageList {...props} firebase={firebase} currentRoom={this.state.currentRoom} />}
+                render={(props) => <MessageList {...props} currentUser={this.state.currentUser} firebase={firebase} currentRoom={this.state.currentRoom} />}
               />
             </main>
           </div>
