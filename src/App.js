@@ -4,6 +4,7 @@ import './App.css';
 import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
+import Landing from './components/Landing';
 
 // Initialize Firebase
 var config = {
@@ -17,15 +18,31 @@ var config = {
 firebase.initializeApp(config);
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      currentRoom: ''
+    };
+  }
+  handleRoomClick = (index) => {
+    this.setState({ currentRoom: index });
+  }
   render() {
     return (
       <div className="App">
         <div className="wrapper">
           <nav id="sidebar">
-            <RoomList firebase={firebase}/>
+            <RoomList firebase={firebase} handleRoomClick={this.handleRoomClick.bind(this)}/>
           </nav>
           <div id="content">
-            <MessageList firebase={firebase}/>
+            <main>
+              <Route exact path="/" component={Landing} />
+              <Route
+                path='/room/:roomKey'
+                render={(props) => <MessageList {...props} firebase={firebase} currentRoom={this.state.currentRoom} />}
+              />
+            </main>
           </div>
         </div>
       </div>

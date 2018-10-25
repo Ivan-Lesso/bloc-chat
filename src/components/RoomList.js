@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 import CreateRoomForm from './CreateRoomForm';
 
 class RoomList extends Component {
@@ -52,10 +53,11 @@ class RoomList extends Component {
           Create Room
         </button>
       </div>
-      <ul>
+      <ul className="nav flex-column">
+
       {
         this.state.rooms.map((item, index) =>
-            <li key={index}>{item.room.name}</li>
+            <li className="nav-item" key={index}><Link className="nav-link text-white" to={`/room/${item.room.key}`} key={index} onClick={() => { this.props.handleRoomClick(item.room.key) }}>{item.room.name}</Link></li>
         )
       }
       </ul>
