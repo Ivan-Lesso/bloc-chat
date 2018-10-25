@@ -5,6 +5,7 @@ import * as firebase from 'firebase';
 import RoomList from './components/RoomList';
 import MessageList from './components/MessageList';
 import Landing from './components/Landing';
+import User from './components/User';
 
 // Initialize Firebase
 var config = {
@@ -22,11 +23,28 @@ class App extends Component {
     super(props);
 
     this.state = {
-      currentRoom: ''
+      currentRoom: '',
+      currentUser: 'Guest'
     };
   }
   handleRoomClick = (index) => {
     this.setState({ currentRoom: index });
+  }
+  handleSigninClick = () => {
+    const provider = new firebase.auth.GoogleAuthProvider();
+    firebase.auth().signInWithPopup( provider );
+  }
+  handleSignoutClick = () => {
+    firebase.auth().signOut();
+    this.setState({ currentUser: 'Guest' });
+  }
+  setUser = (user) => {
+    this.setState({ currentUser: user.displayName });
+  }
+  componentDidMount = () => {
+    firebase.auth().onAuthStateChanged( user => {
+      if (user) this.setUser(user);
+    });
   }
   render() {
     return (
@@ -34,6 +52,9 @@ class App extends Component {
         <div className="wrapper">
           <nav id="sidebar">
             <RoomList firebase={firebase} handleRoomClick={this.handleRoomClick.bind(this)}/>
+            <div className="fixed-bottom userButton">
+              <User currentUser={this.state.currentUser} handleSigninClick={ () => { this.handleSigninClick() } } handleSignoutClick={ () => { this.handleSignoutClick() } } />
+            </div>
           </nav>
           <div id="content">
             <main>
